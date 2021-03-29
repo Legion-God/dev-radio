@@ -1,6 +1,7 @@
 """
 Handles parsing of podcasts
 """
+import feedparser
 
 podcast_urls = {
     'stackoverflow': 'https://feeds.simplecast.com/XA_851k3',
