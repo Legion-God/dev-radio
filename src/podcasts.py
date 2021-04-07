@@ -14,3 +14,13 @@ podcast_urls = {
     'teaching_python': 'https://feeds.fireside.fm/teachingpython/rss',
     'python_podcast': 'https://www.pythonpodcast.com/feed/mp3/'
 }
+
+
+def podcast_extractor(podcast_link):
+    """
+    Returns a list of dictionary with episode number, episode title, and audio stream url
+    :param podcast_link: rss feed link for the podcast.
+    :return: [{'epi_numb': epi_numb, 'epi_title': epi_title, 'stream_url': stream_url},...]
+    """
+    ...
+    rss_feed = feedparser.parse(podcast_link)
