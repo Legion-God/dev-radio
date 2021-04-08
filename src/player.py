@@ -3,8 +3,7 @@ import vlc
 
 def player(stream_url):
     """
-    Takes the stream url and plays the audio in background process while listening for input,
-    to cancel the stream.
+    Takes the stream url and plays the audio in background process while listening for input controls.
     :param stream_url:
     :return:
     """

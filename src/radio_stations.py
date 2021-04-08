@@ -27,7 +27,7 @@ radio_urls = {'jpop_listen_moe': 'https://listen.moe/stream',
               }
 
 '''
-everthing_weeb contains, classic, modern anime, city pop, eurobeat and video game music.
+everything_weeb contains, classic, modern anime, city pop, eurobeat and video game music.
 '''
 
 # TODO: convert this file to JSON file, and add options to write to file.

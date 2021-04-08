@@ -6,6 +6,7 @@ idna==2.10
 iniconfig==1.1.1
 packaging==20.9
 pluggy==0.13.1
+prettytable==2.1.0
 py==1.10.0
 pyparsing==2.4.7
 pytest==6.2.2
@@ -14,6 +15,6 @@ requests==2.25.1
 ruamel.yaml==0.17.0
 ruamel.yaml.clib==0.2.2
 sgmllib3k==1.0.0
-tabulate==0.8.9
 toml==0.10.2
 urllib3==1.26.4
+wcwidth==0.2.5
