@@ -5,7 +5,7 @@ from collections import namedtuple
 
 import feedparser
 from prettytable import PrettyTable, ALL
-from player import player
+from src.player import player
 
 
 podcast_urls = {

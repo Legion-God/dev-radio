@@ -1,6 +1,7 @@
 import vlc
 
 
+# FIXME: handle exception if invalid stream url is passed.
 def player(stream_url):
     """
     Takes the stream url and plays the audio in background process while listening for input controls.

@@ -18,3 +18,6 @@ sgmllib3k==1.0.0
 toml==0.10.2
 urllib3==1.26.4
 wcwidth==0.2.5
+
+click~=7.1.2
+setuptools~=54.2.0
