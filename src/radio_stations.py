@@ -51,6 +51,7 @@ def station_config(operation, new_station_key, new_station_value=None):
         old_radio_data.update({new_station_key: new_station_value})
     elif operation.lower() == 'd':
         old_radio_data.pop(new_station_key)
+        # TODO: handle exception for keyerror.
     else:
         print("Incorrect Configuration Option.")
         # TODO: Raise custom exception
@@ -62,5 +63,8 @@ def station_config(operation, new_station_key, new_station_value=None):
 
 
 if __name__ == '__main__':
-    station_config('d', 'test_radio', 'test_URLRLGDKDG')
+    # station_config('d', 'test_radio', 'test_URLRLGDKDG')
     # player(radio_urls['jpop_alter'])
+
+    # Testing
+    player(read_stations()['anime'])
