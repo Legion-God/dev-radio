@@ -16,7 +16,7 @@ def player(stream_url):
     media_player.set_media(media_url_vlc_obj)
 
     media_player.play()
-    print("Radio stream has started ...")
+    print("Radio stream has started ... ((d[-_-]b))")
 
     media_control_input = None
     while not media_control_input == 'q':
@@ -27,26 +27,26 @@ def player(stream_url):
 
         if media_control_input == 'p':
             media_player.pause()
-            print("Play/Pause\n")
+            print("Play/Pause (^_^)\n")
 
         elif media_control_input == 'q':
-            print("Aww, man you killed the radio :(")
+            print("Aww, man you killed the radio. (T_T)\n")
             media_player.stop()
             break
 
         elif media_control_input == 'm':
-            print("Mute/Unmute\n")
+            print("Mute/Unmute (~_~)\n")
             media_player.audio_toggle_mute()
 
         elif media_control_input == '+':
             current_volume = media_player.audio_get_volume()
             current_volume += volume_step
-            max_volume = 150
+            max_volume = 151
             if current_volume <= max_volume:
                 media_player.audio_set_volume(current_volume)
                 print(f"+vol {current_volume}\n")
             else:
-                print("Max volume reached, you will bleed through ears, if you go any further.\n")
+                print("Max volume reached, you will bleed through ears, if you go any further. (o_O)\n")
 
         elif media_control_input == '-':
             current_volume = media_player.audio_get_volume()
@@ -56,7 +56,7 @@ def player(stream_url):
                 media_player.audio_set_volume(current_volume)
                 print(f"-vol {current_volume}\n")
             else:
-                print("Min volume reached\n")
+                print("Min volume reached (-_-)zzz\n")
 
         else:
-            print("Incorrect input choice, try again ... :D")
+            print("Incorrect input choice, try again ... (?_?)\n")

@@ -1,4 +1,5 @@
 from player import player
+import json
 
 # noinspection SpellCheckingInspection
 radio_urls = {'jpop_listen_moe': 'https://listen.moe/stream',
@@ -12,7 +13,7 @@ radio_urls = {'jpop_listen_moe': 'https://listen.moe/stream',
               'vocaloid': 'http://curiosity.shoutca.st:8019/stream',
               'synthwave': 'http://air.radiorecord.ru:805/synth_320',
               'synthwave_alter': 'https://stream.nightride.fm/nightride.m4a',
-              'synthwave_alter_alter': 'https://ecast.myautodj.com/public1channel',
+              'synthwave_alter1': 'https://ecast.myautodj.com/public1channel',
               'dance': 'https://www.ophanim.net:8444/s/9780',
               'dance_alter': 'https://stream.laut.fm/dance',
               'dubstep': 'https://stream.24dubstep.pl/radio/8000/mp3_best',
@@ -32,5 +33,34 @@ everything_weeb contains, classic, modern anime, city pop, eurobeat and video ga
 
 # TODO: convert this file to JSON file, and add options to write to file.
 
+
+def read_stations():
+    """
+    reads the radio station json file and returns dict.
+    :return: dict{'radio_station': 'url'}
+    """
+    with open('../radio_stations.json', 'r') as infile:
+        old_radio_data = json.load(infile)
+    return old_radio_data
+
+
+def station_config(operation, new_station_key, new_station_value=None):
+    old_radio_data = read_stations()
+    # TODO: use input validation for operation inside click, this is temp solution.
+    if operation.lower() == 'a':
+        old_radio_data.update({new_station_key: new_station_value})
+    elif operation.lower() == 'd':
+        old_radio_data.pop(new_station_key)
+    else:
+        print("Incorrect Configuration Option.")
+        # TODO: Raise custom exception
+
+    with open('../radio_stations.json', 'w') as outfile:
+        json.dump(old_radio_data, outfile, indent=4)
+        # TODO: print different message based on type of operation performed.
+        print("Added new radio stations ...")
+
+
 if __name__ == '__main__':
-    player(radio_urls['jpop_alter'])
+    station_config('d', 'test_radio', 'test_URLRLGDKDG')
+    # player(radio_urls['jpop_alter'])
