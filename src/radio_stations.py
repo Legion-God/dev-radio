@@ -5,6 +5,7 @@ from prettytable import PrettyTable, ALL
 import requests
 from requests.exceptions import MissingSchema, ConnectionError
 
+
 # noinspection SpellCheckingInspection
 radio_urls = {'jpop': 'https://listen.moe/stream',
               'anime': 'https://s3.radio.co/sff133d65b/listen',
@@ -115,11 +116,11 @@ def cli_reset_stations():
 
 
 def cli_radio_check():
-    media_extensions = ['audio/mpeg', 'audio/aac', 'application/ogg']
     radio_stations = read_stations()
+    valid_media_extensions = ['audio/mpeg', 'audio/aac', 'application/ogg']
     for station_name, station_url in radio_stations.items():
         resp_content_type = requests.get(station_url, stream=True).headers.get('Content-Type')
-        if resp_content_type in media_extensions:
+        if resp_content_type in valid_media_extensions:
             print(f'[OK!] {station_name} ->>  {station_url}')
         else:
             print(f'[FAIL!] {station_name} ->>  {station_url}\nChange or delete this station.')
