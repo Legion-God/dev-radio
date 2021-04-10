@@ -6,7 +6,11 @@ from src.radio_stations import (
     cli_reset_stations,
     cli_radio_check
 )
-
+from src.podcasts import (
+    cli_podcast_list,
+    cli_print_episodes,
+    cli_podcast_play
+)
 """Entry point for dev-radio."""
 
 
@@ -16,7 +20,7 @@ def dradio():
     pass
 
 
-@dradio.command(help="Plays, lists, checks radio streams.")
+@dradio.command(help="Plays radio streams.")
 @click.option('--list', '-L', 'list_', is_flag=True, help="Lists all the radio stations.")
 @click.option('--play', '-P', type=str, help="Pass the radio station name, to start playing radio.")
 @click.option('--add-station', '-A', 'add_station', nargs=2, type=str,
@@ -39,6 +43,26 @@ def radio(list_, play, add_station, del_station, reset, check):
             cli_reset_stations()
     if check:
         cli_radio_check()
+
+
+@dradio.command(help="Plays podcasts.")
+@click.option('--list', '-L', 'pod_list_', is_flag=True, help="Lists all the podcasts.")
+@click.option('--all-eps', '-A', 'eps', type=str, help="Shows all the episode of podcast.")
+@click.option('--play', '-P', type=(str, int), default=(None, None),
+              help="Pass the podcast name and episode_id (NOT the episode_number) to play the episode,"
+                   "resp. pass episode_id 0 for latest episode.")
+def podcast(pod_list_, eps, play):
+    if pod_list_:
+        cli_podcast_list()
+    if eps:
+        # FIXME: help of all eps is a bit wrong.
+        # FIXME: use pagination.
+        # FIXME: adjust the width of columns.
+        cli_print_episodes(eps)
+    if play:
+        if None not in play:
+            # FIXME: check if the podcast name is number, click doesnt do string validation for int.
+            cli_podcast_play(podcast_name=play[0], episode_id=play[1])
 
 
 # TODO: figure out how to add examples in help
