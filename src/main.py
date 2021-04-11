@@ -95,7 +95,6 @@ def podcast(pod_list_, eps, play):
     if pod_list_:
         cli_podcast_list()
     if eps:
-        # FIXME: use pagination.
         cli_print_episodes(eps)
     if play:
         if None not in play:

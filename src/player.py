@@ -1,5 +1,6 @@
 import vlc
 import requests
+import click
 
 
 def player(stream_url):
@@ -21,11 +22,14 @@ def player(stream_url):
 
         media_player.play()
         print("Radio stream has started ... ((d[-_-]b))")
+        print("NOTE: If you can't hear anything, try increasing volume ...")
 
         media_control_input = None
         while not media_control_input == 'q':
-            media_control_input = input("Enter q to quit, p to play/pause, m to mute/unmute, +/- to change volume."
-                                        "\ndev-radio>").lower()
+            click.echo("Enter q to quit, p to play/pause, m to mute/unmute, +/- to change "
+                       "volume. \ndev-radio>", nl=False)
+            media_control_input = click.getchar().lower()
+            click.echo()
             volume_step = 10
             # Volume is decreased/increased in steps.
 

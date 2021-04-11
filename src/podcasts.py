@@ -3,6 +3,7 @@ Handles parsing of podcasts
 """
 from collections import namedtuple
 
+import click
 import feedparser
 from prettytable import PrettyTable, ALL
 from src.player import player
@@ -21,11 +22,35 @@ podcast_urls = {
     'teaching_python': 'https://feeds.fireside.fm/teachingpython/rss',
     'python_podcast': 'https://www.pythonpodcast.com/feed/mp3/'
 }
+# FIXME: something is wrong with profitable python, play the episodes for other podcasts as well.
 
 
 def read_podcasts():
     # MAYBE: maybe make podcast in file?
     return podcast_urls
+
+
+def print_via_pager(data, data_len):
+    """
+    A utility pager function, because click.echo_via_pager() is broken for pretty_tables.
+    Prints until data_len is 0 and then quits.
+
+    :param data_len: length of data.
+    :param data: data to be printed.
+    :return:
+    """
+    # Defines the starting step for each paging print
+    paging_start_step = 0
+
+    # Defines how many elements are printed at a time.
+    paging_step = 50
+    pager_quit_control = None
+    while pager_quit_control != 'q' and data_len > 0:
+        click.echo(data.get_string(start=paging_start_step, end=paging_start_step+paging_step))
+        paging_start_step += paging_step
+        data_len -= paging_step
+        click.echo("Press ENTER for more, q to quit.")
+        pager_quit_control = click.getchar().lower()
 
 
 def podcast_extractor(podcast_name):
@@ -73,6 +98,7 @@ def cli_print_episodes(podcast_name):
     :return:
     """
     # FIXME: check the column width and other formatting issues for other podcasts.
+    click.echo("Wait a few seconds ...")
     episode_list = podcast_extractor(podcast_name)
     if episode_list:
         pretty_table = PrettyTable()
@@ -80,8 +106,9 @@ def cli_print_episodes(podcast_name):
         pretty_table.add_rows(episode_list)
         pretty_table.hrules = ALL
 
-        pretty_table.fields = ['id', 'Title', 'Episode', 'Date']
-        print(pretty_table)
+        pretty_table.fields = ['id', 'Title', 'Episode']
+        episodes_len = len(episode_list)
+        print_via_pager(pretty_table, episodes_len)
 
 
 def cli_podcast_list():
@@ -96,7 +123,7 @@ def cli_podcast_list():
     podcast_list = read_podcasts()
     podcast_list = [(index, podcast) for index, podcast in enumerate(podcast_list, start=0)]
     pretty_table.add_rows(podcast_list)
-    print(pretty_table)
+    click.echo(pretty_table)
 
 
 def cli_podcast_play(podcast_name, episode_id):
