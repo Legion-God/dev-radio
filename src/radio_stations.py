@@ -33,14 +33,12 @@ radio_urls = {'jpop': 'https://listen.moe/stream',
               }
 
 
-# TODO: add comments and documentation.
-
 def read_stations():
     """
     reads the radio station json file and returns dict.
+
     :return: dict{'radio_station': 'url'}
     """
-    # REVIEW: probably fixed.
     file_path = Path(__file__).parent.parent / 'radio_stations.json'
     with open(file_path, 'r') as infile:
         old_radio_data = json.load(infile)
@@ -48,6 +46,11 @@ def read_stations():
 
 
 def cli_radio_station_list():
+    """
+    CLI facing function that pretty prints all the radio stations.
+
+    :return:
+    """
     pretty_table = PrettyTable()
     pretty_table.hrules = ALL
     pretty_table.field_names = ["id", "Station"]
@@ -58,8 +61,16 @@ def cli_radio_station_list():
 
 
 def station_config(operation, new_station_key, new_station_value=None):
-    old_radio_data = read_stations()
+    """
+    Adds/Deletes radio station to radio_stations.json file.
 
+    :param operation: 'a' adds new station with new station key and value, 'd' deletes station with new_station_key
+    :param new_station_key: radio station name.
+    :param new_station_value: radio station url.
+    :return:
+    """
+    old_radio_data = read_stations()
+    # REVIEW: maybe try using dictionary to map operation to add and delete function, instead of if-elif.
     if operation.lower() == 'a':
         old_radio_data.update({new_station_key: new_station_value})
         print(f"Added new station {new_station_key} with url :: {new_station_value}")
@@ -74,13 +85,18 @@ def station_config(operation, new_station_key, new_station_value=None):
     else:
         print("Incorrect Configuration Option.")
 
-    # REVIEW: Probably Fixed
     file_path = Path(__file__).parent.parent / 'radio_stations.json'
     with open(file_path, 'w') as outfile:
         json.dump(old_radio_data, outfile, indent=4)
 
 
 def cli_radio_play(station_name):
+    """
+    CLI facing function that plays radio named station_name.
+
+    :param station_name: radio station name.
+    :return:
+    """
     station_url = read_stations().get(station_name)
     if station_url:
         print(f"Station :: {station_name}")
@@ -90,6 +106,13 @@ def cli_radio_play(station_name):
 
 
 def cli_add_station(station_name, station_url):
+    """
+    CLI facing wrapper function around station_config() that adds new radio station to file.
+
+    :param station_name: radio station name.
+    :param station_url: radio station url.
+    :return:
+    """
     try:
         resp = requests.get(station_url, stream=True)
     except MissingSchema:
@@ -104,10 +127,21 @@ def cli_add_station(station_name, station_url):
 
 
 def cli_del_station(station_name):
+    """
+    CLI facing wrapper function for station_config() that deletes radio stations from the file.
+
+    :param station_name: radio station name.
+    :return:
+    """
     station_config(operation='d', new_station_key=station_name)
 
 
 def cli_reset_stations():
+    """
+    CLI facing function that resets the radio stations stored in radio_stations.json to default ones.
+
+    :return:
+    """
     file_path = Path(__file__).parent.parent / 'radio_stations.json'
     with open(file_path, 'w') as outfile:
         json.dump(radio_urls, outfile, indent=4)
@@ -116,6 +150,11 @@ def cli_reset_stations():
 
 
 def cli_radio_check():
+    """
+    CLI facing function to check which radio stations are online from the file.
+
+    :return:
+    """
     radio_stations = read_stations()
     valid_media_extensions = ['audio/mpeg', 'audio/aac', 'application/ogg']
     for station_name, station_url in radio_stations.items():
@@ -127,4 +166,4 @@ def cli_radio_check():
 
 
 if __name__ == '__main__':
-    ...
+    cli_radio_station_list()
