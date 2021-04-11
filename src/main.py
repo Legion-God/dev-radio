@@ -16,11 +16,23 @@ from src.podcasts import (
 """Entry point for dev-radio."""
 
 
-@click.group()
-# TODO: add help.
+class AliasedGroup(click.Group):
+    """
+    A class for creating aliases for commands.
+    """
+    def get_command(self, ctx, cmd_name):
+        try:
+            cmd_name = ALIASES[cmd_name].name
+        except KeyError:
+            pass
+        return super().get_command(ctx, cmd_name)
+
+
+@click.group(cls=AliasedGroup)
 def dradio():
     """
     dev-radio is simple command line tool to listen to python podcast and radio streams.
+    Use --help with Commands to get their help.
     """
     pass
 
@@ -42,7 +54,7 @@ Example: dradio radio --del-station <radio_station_name>
 """
 
 
-@dradio.command(help="Plays radio streams.")
+@dradio.command(help="ALIAS: rad, Plays radio streams.")
 @click.option('--list', '-L', 'list_', is_flag=True, help="Lists all the radio stations.")
 @click.option('--play', '-P', type=str, help=radio_play_help)
 @click.option('--add-station', '-A', 'add_station', nargs=2, type=str, help=radio_add_help)
@@ -74,7 +86,7 @@ Example: dradio podcast <podcast_name> <podcast_episode_id>
 """
 
 
-@dradio.command(help="Plays podcasts.")
+@dradio.command(help="ALIAS: pod, Plays podcasts.")
 @click.option('--list', '-L', 'pod_list_', is_flag=True, help="Lists all the podcasts.")
 @click.option('--all-eps', '-A', 'eps', type=str, help="Shows all the episodes of podcast <podcast_name>")
 @click.option('--play', '-P', type=(str, int), default=(None, None),
@@ -84,12 +96,17 @@ def podcast(pod_list_, eps, play):
         cli_podcast_list()
     if eps:
         # FIXME: use pagination.
-        # FIXME: adjust the width of columns.
         cli_print_episodes(eps)
     if play:
         if None not in play:
             cli_podcast_play(podcast_name=play[0], episode_id=play[1])
 
+
+# Alias dictionary for commands.
+ALIASES = {
+    'rad': radio,
+    'pod': podcast
+}
 
 if __name__ == '__main__':
     dradio()
