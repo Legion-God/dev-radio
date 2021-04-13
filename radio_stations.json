@@ -13,7 +13,6 @@
     "synthwave1": "https://ecast.myautodj.com/public1channel",
     "dance": "https://www.ophanim.net:8444/s/9780",
     "dance0": "https://stream.laut.fm/dance",
-    "dubstep": "https://stream.24dubstep.pl/radio/8000/mp3_best",
     "dubstep0": "https://radio.maddubz.net/radio/8000/dubstep.mp3",
     "dubstep1": "https://ice6.somafm.com/dubstep-128-mp3",
     "country": "https://pureplay.cdnstream1.com/6029_128.mp3",
@@ -21,5 +20,6 @@
     "heavy_metal": "https://stream.laut.fm/metal",
     "lo_fi": "https://laut.fm/lofi",
     "chill": "https://stream.laut.fm/loungetunes",
-    "hip_hop": "https://stream.laut.fm/1000hiphop"
+    "hip_hop": "https://stream.laut.fm/1000hiphop",
+    "dubstep_not_working": "https://stream.24dubstep.pl/radio/8000/mp3_best"
 }

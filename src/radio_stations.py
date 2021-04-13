@@ -135,6 +135,26 @@ def cli_del_station(station_name):
     station_config(operation='d', new_station_key=station_name)
 
 
+def cli_ren_station(old_station_name, new_station_name):
+    """
+    CLI facing function that renames the radio stations.
+    This is just performs delete and add station.
+
+    :param old_station_name: old radio station name.
+    :param new_station_name: new radio station name.
+    :return:
+    """
+    radio_stations = read_stations()
+    try:
+        new_station_url = radio_stations.pop(old_station_name)
+    except KeyError:
+        print(f"Station name {old_station_name} doesn't exist ...")
+    else:
+        cli_del_station(old_station_name)
+        cli_add_station(new_station_name, new_station_url)
+        print(f"{old_station_name} Renamed --> {new_station_name}")
+
+
 def cli_reset_stations():
     """
     CLI facing function that resets the radio stations stored in radio_stations.json to default ones.
