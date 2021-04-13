@@ -30,6 +30,27 @@ def read_podcasts():
     return podcast_urls
 
 
+def title_modifier(podcast_title, max_line_word_count=5):
+    """
+    Utility function to add new line character to the podcast title if it's too long.
+    Increases readability in terminal.
+
+    :param podcast_title: title of the podcast.
+    :param max_line_word_count: maximum number of words allowed on single line before inserting new line character.
+    :return: modified string with new line characters.
+    """
+    total_word_count = 0
+    modified_title = ""
+
+    for word in podcast_title.split():
+        modified_title += word + " "
+        if total_word_count != 0 and total_word_count % max_line_word_count == 0:
+            modified_title += "\n"
+        total_word_count += 1
+
+    return modified_title
+
+
 def print_via_pager(data, data_len):
     """
     A utility pager function, because click.echo_via_pager() is broken for pretty_tables.
@@ -46,7 +67,9 @@ def print_via_pager(data, data_len):
     paging_step = 50
     pager_quit_control = None
     while pager_quit_control != 'q' and data_len > 0:
-        click.echo(data.get_string(start=paging_start_step, end=paging_start_step+paging_step))
+        data.start = paging_start_step
+        data.end = paging_start_step + paging_step
+        click.echo(data)
         paging_start_step += paging_step
         data_len -= paging_step
         click.echo("Press ENTER for more, q to quit.")
@@ -78,7 +101,7 @@ def podcast_extractor(podcast_name):
             for index, episode_item in enumerate(episode_entries):
                 all_episodes.append(
                     Episode(id=index,
-                            episode_title=episode_item.get('title', 'NULL'),
+                            episode_title=title_modifier(episode_item.get('title', 'NULL')),
                             episode_number=episode_item.get('itunes_episode', 'NULL'),
                             date=' '.join(episode_item.get('published', 'NULL').split()[:-2]),
                             stream_url=episode_item.links[-1].get('href', 'NULL')
@@ -97,7 +120,7 @@ def cli_print_episodes(podcast_name):
     :param podcast_name:  podcast name from podcast dict.
     :return:
     """
-    # FIXME: check the column width and other formatting issues for other podcasts.
+    # FIXME: check if the title is greater than certain number and insert \n to solve the problem of extra wide margins.
     click.echo("Wait a few seconds ...")
     episode_list = podcast_extractor(podcast_name)
     if episode_list:

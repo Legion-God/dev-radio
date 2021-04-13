@@ -11,11 +11,13 @@ setup(
     long_description_content_type='text/markdown',
     url='https://github.com/Legion-God/dev-radio',
     author="Shubhendra Rajkarne",
-    author_email='srajkarne10@gmail.com',
+    author_email='srajkarne11@gmail.com',
     classifiers=[
         "Programming Language :: Python :: 3",
+        "Environment :: Console",
         "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent"
+        "Operating System :: OS Independent",
+        "Topic :: Multimedia :: Sound/Audio"
     ],
     install_requires=[],
     entry_points='''
