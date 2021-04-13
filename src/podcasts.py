@@ -39,16 +39,13 @@ def title_modifier(podcast_title, max_line_word_count=5):
     :param max_line_word_count: maximum number of words allowed on single line before inserting new line character.
     :return: modified string with new line characters.
     """
-    total_word_count = 0
-    modified_title = ""
+    modified_title_list = podcast_title.split()
+    total_word_count = len(modified_title_list)
 
-    for word in podcast_title.split():
-        modified_title += word + " "
-        if total_word_count != 0 and total_word_count % max_line_word_count == 0:
-            modified_title += "\n"
-        total_word_count += 1
+    for word_index in range(max_line_word_count, total_word_count, max_line_word_count):
+        modified_title_list[word_index-1] = modified_title_list[word_index-1] + "\n"
 
-    return modified_title
+    return " ".join(modified_title_list)
 
 
 def print_via_pager(data, data_len):
