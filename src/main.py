@@ -65,16 +65,16 @@ Example: dradio radio --del-station <radio_station_name>
 def radio(list_, play, add_station, del_station, reset, check):
     if list_:
         cli_radio_station_list()
-    if play:
+    elif play:
         cli_radio_play(play)
-    if add_station:
+    elif add_station:
         cli_add_station(add_station[0], add_station[1])
-    if del_station:
+    elif del_station:
         cli_del_station(del_station)
-    if reset:
+    elif reset:
         if click.confirm('Do you want to reset all radio stations?', abort=True):
             cli_reset_stations()
-    if check:
+    elif check:
         cli_radio_check()
 
 
@@ -94,9 +94,9 @@ Example: dradio podcast <podcast_name> <podcast_episode_id>
 def podcast(pod_list_, eps, play):
     if pod_list_:
         cli_podcast_list()
-    if eps:
+    elif eps:
         cli_print_episodes(eps)
-    if play:
+    elif play:
         if None not in play:
             cli_podcast_play(podcast_name=play[0], episode_id=play[1])
 

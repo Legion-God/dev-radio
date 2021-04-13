@@ -22,7 +22,6 @@ podcast_urls = {
     'teaching_python': 'https://feeds.fireside.fm/teachingpython/rss',
     'python_podcast': 'https://www.pythonpodcast.com/feed/mp3/'
 }
-# FIXME: something is wrong with profitable python, play the episodes for other podcasts as well.
 
 
 def read_podcasts():
@@ -117,7 +116,6 @@ def cli_print_episodes(podcast_name):
     :param podcast_name:  podcast name from podcast dict.
     :return:
     """
-    # FIXME: check if the title is greater than certain number and insert \n to solve the problem of extra wide margins.
     click.echo("Wait a few seconds ...")
     episode_list = podcast_extractor(podcast_name)
     if episode_list:
@@ -155,6 +153,7 @@ def cli_podcast_play(podcast_name, episode_id):
     :return:
     """
     episode = None
+    print("Wait a few seconds ...\n")
     episode_list = podcast_extractor(podcast_name)
     if episode_list:
         try:
@@ -165,7 +164,9 @@ def cli_podcast_play(podcast_name, episode_id):
             print(e)
             print("Something went wrong, when getting podcast episode data to play.")
         else:
-            print(f"Episode:: {episode.episode_number} ->> Title:: {episode.episode_title}\nDate:: {episode.date}")
+            # episode title without new line characters.
+            cleaned_episode_title = episode.episode_title.replace('\n', '')
+            print(f"Episode:: {episode.episode_number} ->> Title:: {cleaned_episode_title}\nDate:: {episode.date}")
             player(episode.stream_url)
 
 

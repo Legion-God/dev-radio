@@ -9,7 +9,8 @@ def player(stream_url):
     :param stream_url:
     :return:
     """
-    valid_media_extensions = ['audio/mpeg', 'audio/aac', 'application/ogg']
+    valid_media_extensions = ['audio/mpeg', 'audio/aac', 'application/ogg', 'audio/x-m4a', 'audio/3gpp', 'audio/3gpp2',
+                              'audio/opus', 'audio/vorbis']
     resp_content_type = requests.get(stream_url, stream=True).headers.get('Content-Type')
 
     if resp_content_type in valid_media_extensions:
@@ -21,8 +22,8 @@ def player(stream_url):
         media_player.set_media(media_url_vlc_obj)
 
         media_player.play()
-        print("Radio stream has started ... ((d[-_-]b))")
-        print("NOTE: If you can't hear anything, try increasing volume ...")
+        print("Radio stream has started ... ((d[-_-]b))\n")
+        print("NOTE: If you can't hear anything, try increasing volume ...\n")
 
         media_control_input = None
         while not media_control_input == 'q':

@@ -70,7 +70,6 @@ def station_config(operation, new_station_key, new_station_value=None):
     :return:
     """
     old_radio_data = read_stations()
-    # REVIEW: maybe try using dictionary to map operation to add and delete function, instead of if-elif.
     if operation.lower() == 'a':
         old_radio_data.update({new_station_key: new_station_value})
         print(f"Added new station {new_station_key} with url :: {new_station_value}")
