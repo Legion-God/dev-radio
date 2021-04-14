@@ -1,4 +1,7 @@
 ![License](https://img.shields.io/badge/license-MIT-brightgreen)
+![Code Grade](https://www.code-inspector.com/project/21254/status/svg)
+![Code Quality Score](https://www.code-inspector.com/project/21254/score/svg)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 # dev-radio
 dev-radio is simple command line tool to listen to radio and developer podcasts.
