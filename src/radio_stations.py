@@ -40,7 +40,7 @@ def read_stations():
 
     :return: dict{'radio_station': 'url'}
     """
-    file_path = Path(__file__).parent.parent / "radio_stations.json"
+    file_path = Path(__file__).parent / "radio_stations.json"
     with open(file_path, "r") as infile:
         old_radio_data = json.load(infile)
     return old_radio_data
@@ -91,7 +91,7 @@ def station_config(operation, new_station_key, new_station_value=None):
     else:
         print("Incorrect Configuration Option.")
 
-    file_path = Path(__file__).parent.parent / "radio_stations.json"
+    file_path = Path(__file__).parent / "radio_stations.json"
     with open(file_path, "w") as outfile:
         json.dump(old_radio_data, outfile, indent=4)
 
@@ -170,7 +170,7 @@ def cli_reset_stations():
 
     :return:
     """
-    file_path = Path(__file__).parent.parent / "radio_stations.json"
+    file_path = Path(__file__).parent / "radio_stations.json"
     with open(file_path, "w") as outfile:
         json.dump(radio_urls, outfile, indent=4)
 

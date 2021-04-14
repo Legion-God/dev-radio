@@ -5,10 +5,9 @@ with open("README.md", 'r', encoding="utf-8") as file:
 
 setup(
     name='dev-radio',
-    version='1.0.5',
+    version='1.0.8',
     packages=find_namespace_packages(),
     include_package_data=True,
-    package_data={"": "radio_stations.json"},
     description="A simple cmdline radio to listen to python podcasts and some music.",
     long_description=long_description,
     long_description_content_type='text/markdown',

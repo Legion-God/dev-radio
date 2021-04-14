@@ -1,1 +1,1 @@
-include radio_stations.json
+include src/radio_stations.json
