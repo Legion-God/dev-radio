@@ -75,6 +75,7 @@ def radio(list_, play, add_station, del_station, ren_station, reset, check):
     elif play:
         cli_radio_play(play)
     elif add_station:
+        print("Wait a few seconds, checking if the url is online ...")
         cli_add_station(add_station[0], add_station[1])
     elif del_station:
         if click.confirm(f"Do you want to delete {del_station} station?", abort=True):
