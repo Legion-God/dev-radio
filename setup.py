@@ -1,11 +1,13 @@
-from setuptools import setup
+from setuptools import setup, find_namespace_packages
 
 with open("README.md", 'r', encoding="utf-8") as file:
     long_description = file.read()
 
 setup(
     name='dev-radio',
-    version='1.0.1',
+    version='1.0.2',
+    packages=find_namespace_packages(),
+    include_package_data=True,
     description="A simple cmdline radio to listen to python podcasts and some music.",
     long_description=long_description,
     long_description_content_type='text/markdown',
