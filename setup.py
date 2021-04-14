@@ -8,6 +8,7 @@ setup(
     version='1.0.4',
     packages=find_namespace_packages(),
     include_package_data=True,
+    package_data={"": "radio_stations.json"},
     description="A simple cmdline radio to listen to python podcasts and some music.",
     long_description=long_description,
     long_description_content_type='text/markdown',
