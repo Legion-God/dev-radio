@@ -1,3 +1,5 @@
+![License](https://img.shields.io/badge/license-MIT-brightgreen)
+
 # dev-radio
 dev-radio is simple command line tool to listen to radio and developer podcasts.
 
@@ -157,7 +159,7 @@ $ dradio pod --list
 $ dradio pod -L
 ```
 
-## Show all the episodes of a podcast.
+### Show all the episodes of a podcast.
 
 ```bash
 $ dradio podcast --all-eps
@@ -168,7 +170,7 @@ $ dradio podcast -A
 $ dradio pod -A
 ```
 
-## Play an episode of a podcast.
+### Play an episode of a podcast.
 
 ```bash
 # 0 is the episode ID NOT episode number.
@@ -180,6 +182,7 @@ $ dradio podcast -P stackoverflow 0
 # or
 $ dradio pod -P stackoverflow 0
 ```
+---
 
 ## Setting up development environment.
 1. `git clone https://github.com/Legion-God/dev-radio.git`  
@@ -187,4 +190,5 @@ $ dradio pod -P stackoverflow 0
 3. Activate your venv by entering `source venv/bin/activate`, if you are on Windows use
 `.\venv\Scripts\activate`
 4. `pip install -r requirements.txt` 
-5. And you are done !
+5. To install package locally, run `pip install -e .`    
+6. And you are done !

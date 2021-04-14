@@ -9,12 +9,22 @@ def player(stream_url):
     :param stream_url:
     :return:
     """
-    valid_media_extensions = ['audio/mpeg', 'audio/aac', 'application/ogg', 'audio/x-m4a', 'audio/3gpp', 'audio/3gpp2',
-                              'audio/opus', 'audio/vorbis']
-    resp_content_type = requests.get(stream_url, stream=True).headers.get('Content-Type')
+    valid_media_extensions = [
+        "audio/mpeg",
+        "audio/aac",
+        "application/ogg",
+        "audio/x-m4a",
+        "audio/3gpp",
+        "audio/3gpp2",
+        "audio/opus",
+        "audio/vorbis",
+    ]
+    resp_content_type = requests.get(stream_url, stream=True).headers.get(
+        "Content-Type"
+    )
 
     if resp_content_type in valid_media_extensions:
-        instance_vlc = vlc.Instance('--quiet')
+        instance_vlc = vlc.Instance("--quiet")
         # Suppresses prefetch stream errors to stdout.
 
         media_player = instance_vlc.media_player_new()
@@ -26,28 +36,31 @@ def player(stream_url):
         print("NOTE: If you can't hear anything, try increasing volume ...\n")
 
         media_control_input = None
-        while not media_control_input == 'q':
-            click.echo("Enter q to quit, p to play/pause, m to mute/unmute, +/- to change "
-                       "volume. \ndev-radio>", nl=False)
+        while not media_control_input == "q":
+            click.echo(
+                "Enter q to quit, p to play/pause, m to mute/unmute, +/- to change "
+                "volume. \ndev-radio>",
+                nl=False,
+            )
             media_control_input = click.getchar().lower()
             click.echo()
             volume_step = 10
             # Volume is decreased/increased in steps.
 
-            if media_control_input == 'p':
+            if media_control_input == "p":
                 media_player.pause()
                 print("Play/Pause (^_^)\n")
 
-            elif media_control_input == 'q':
+            elif media_control_input == "q":
                 print("Aww, man you killed the radio. (T_T)\n")
                 media_player.stop()
                 break
 
-            elif media_control_input == 'm':
+            elif media_control_input == "m":
                 print("Mute/Unmute (~_~)\n")
                 media_player.audio_toggle_mute()
 
-            elif media_control_input == '+':
+            elif media_control_input == "+":
                 current_volume = media_player.audio_get_volume()
                 current_volume += volume_step
                 max_volume = 151
@@ -55,9 +68,11 @@ def player(stream_url):
                     media_player.audio_set_volume(current_volume)
                     print(f"+vol {current_volume}\n")
                 else:
-                    print("Max volume reached, you will bleed through ears, if you go any further. (o_O)\n")
+                    print(
+                        "Max volume reached, you will bleed through ears, if you go any further. (o_O)\n"
+                    )
 
-            elif media_control_input == '-':
+            elif media_control_input == "-":
                 current_volume = media_player.audio_get_volume()
                 current_volume -= volume_step
                 min_volume = 0

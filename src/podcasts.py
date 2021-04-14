@@ -12,15 +12,15 @@ from requests import ConnectionError
 
 
 podcast_urls = {
-    'stackoverflow': 'https://feeds.simplecast.com/XA_851k3',
-    'real_python': 'https://realpython.com/podcasts/rpp/feed',
-    'python_bytes': 'https://pythonbytes.fm/episodes/rss_full_history',
-    'talk_python': 'https://talkpython.fm/episodes/rss_full_history',
-    'data_engineering': 'https://www.dataengineeringpodcast.com/feed/mp3/',
-    'test_n_code': 'https://feeds.fireside.fm/testandcode/rss',
-    'profitable_python': 'https://anchor.fm/s/c8df638/podcast/rss',
-    'teaching_python': 'https://feeds.fireside.fm/teachingpython/rss',
-    'python_podcast': 'https://www.pythonpodcast.com/feed/mp3/'
+    "stackoverflow": "https://feeds.simplecast.com/XA_851k3",
+    "real_python": "https://realpython.com/podcasts/rpp/feed",
+    "python_bytes": "https://pythonbytes.fm/episodes/rss_full_history",
+    "talk_python": "https://talkpython.fm/episodes/rss_full_history",
+    "data_engineering": "https://www.dataengineeringpodcast.com/feed/mp3/",
+    "test_n_code": "https://feeds.fireside.fm/testandcode/rss",
+    "profitable_python": "https://anchor.fm/s/c8df638/podcast/rss",
+    "teaching_python": "https://feeds.fireside.fm/teachingpython/rss",
+    "python_podcast": "https://www.pythonpodcast.com/feed/mp3/",
 }
 
 
@@ -42,7 +42,7 @@ def title_modifier(podcast_title, max_line_word_count=5):
     total_word_count = len(modified_title_list)
 
     for word_index in range(max_line_word_count, total_word_count, max_line_word_count):
-        modified_title_list[word_index-1] = modified_title_list[word_index-1] + "\n"
+        modified_title_list[word_index - 1] = modified_title_list[word_index - 1] + "\n"
 
     return " ".join(modified_title_list)
 
@@ -62,7 +62,7 @@ def print_via_pager(data, data_len):
     # Defines how many elements are printed at a time.
     paging_step = 50
     pager_quit_control = None
-    while pager_quit_control != 'q' and data_len > 0:
+    while pager_quit_control != "q" and data_len > 0:
         data.start = paging_start_step
         data.end = paging_start_step + paging_step
         click.echo(data)
@@ -90,18 +90,24 @@ def podcast_extractor(podcast_name):
             print("Something went wrong, when accessing podcast ...")
         else:
             all_episodes = []
-            Episode = namedtuple('Episode', ['id', 'episode_title', 'episode_number', 'date', 'stream_url'])
+            Episode = namedtuple(
+                "Episode",
+                ["id", "episode_title", "episode_number", "date", "stream_url"],
+            )
 
             rss_feed = feedparser.parse(podcast_link)
             episode_entries = rss_feed.entries
             for index, episode_item in enumerate(episode_entries):
                 all_episodes.append(
-                    Episode(id=index,
-                            episode_title=title_modifier(episode_item.get('title', 'NULL')),
-                            episode_number=episode_item.get('itunes_episode', 'NULL'),
-                            date=' '.join(episode_item.get('published', 'NULL').split()[:-2]),
-                            stream_url=episode_item.links[-1].get('href', 'NULL')
-                            )
+                    Episode(
+                        id=index,
+                        episode_title=title_modifier(episode_item.get("title", "NULL")),
+                        episode_number=episode_item.get("itunes_episode", "NULL"),
+                        date=" ".join(
+                            episode_item.get("published", "NULL").split()[:-2]
+                        ),
+                        stream_url=episode_item.links[-1].get("href", "NULL"),
+                    )
                 )
 
             return all_episodes
@@ -120,11 +126,11 @@ def cli_print_episodes(podcast_name):
     episode_list = podcast_extractor(podcast_name)
     if episode_list:
         pretty_table = PrettyTable()
-        pretty_table.field_names = ['id', 'Title', 'Episode', 'Date', 'Url']
+        pretty_table.field_names = ["id", "Title", "Episode", "Date", "Url"]
         pretty_table.add_rows(episode_list)
         pretty_table.hrules = ALL
 
-        pretty_table.fields = ['id', 'Title', 'Episode']
+        pretty_table.fields = ["id", "Title", "Episode"]
         episodes_len = len(episode_list)
         print_via_pager(pretty_table, episodes_len)
 
@@ -139,7 +145,9 @@ def cli_podcast_list():
     pretty_table.hrules = ALL
     pretty_table.field_names = ["id", "Podcast Name"]
     podcast_list = read_podcasts()
-    podcast_list = [(index, podcast) for index, podcast in enumerate(podcast_list, start=0)]
+    podcast_list = [
+        (index, podcast) for index, podcast in enumerate(podcast_list, start=0)
+    ]
     pretty_table.add_rows(podcast_list)
     click.echo(pretty_table)
 
@@ -165,10 +173,12 @@ def cli_podcast_play(podcast_name, episode_id):
             print("Something went wrong, when getting podcast episode data to play.")
         else:
             # episode title without new line characters.
-            cleaned_episode_title = episode.episode_title.replace('\n', '')
-            print(f"Episode:: {episode.episode_number} ->> Title:: {cleaned_episode_title}\nDate:: {episode.date}")
+            cleaned_episode_title = episode.episode_title.replace("\n", "")
+            print(
+                f"Episode:: {episode.episode_number} ->> Title:: {cleaned_episode_title}\nDate:: {episode.date}"
+            )
             player(episode.stream_url)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli_podcast_list()
