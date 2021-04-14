@@ -5,7 +5,7 @@ with open("README.md", 'r', encoding="utf-8") as file:
 
 setup(
     name='dev-radio',
-    version='1.0.0',
+    version='1.0.1',
     description="A simple cmdline radio to listen to python podcasts and some music.",
     long_description=long_description,
     long_description_content_type='text/markdown',
