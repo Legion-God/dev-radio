@@ -5,7 +5,7 @@ with open("README.md", 'r', encoding="utf-8") as file:
 
 setup(
     name='dev-radio',
-    version='1.0.4',
+    version='1.0.5',
     packages=find_namespace_packages(),
     include_package_data=True,
     package_data={"": "radio_stations.json"},
