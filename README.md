@@ -165,12 +165,12 @@ $ dradio pod -L
 ### Show all the episodes of a podcast.
 
 ```bash
-$ dradio podcast --all-eps
+$ dradio podcast --all-eps stackoverflow
 
 # Using alias
-$ dradio podcast -A
+$ dradio podcast -A stackoverflow
 # or 
-$ dradio pod -A
+$ dradio pod -A stackoverflow
 ```
 
 ### Play an episode of a podcast.
