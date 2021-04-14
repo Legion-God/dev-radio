@@ -19,7 +19,16 @@ setup(
         "Operating System :: OS Independent",
         "Topic :: Multimedia :: Sound/Audio"
     ],
-    install_requires=[],
+    install_requires=[
+        'requests',
+        'feedparser',
+        'click',
+        'prettytable',
+        'python-vlc'
+    ],
+    extra_require={
+        'dev': ['pytest']
+    },
     entry_points='''
         [console_scripts]
         dradio=src.main:dradio
