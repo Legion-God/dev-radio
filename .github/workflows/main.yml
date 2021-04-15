@@ -8,7 +8,7 @@
           id: code-inspector
           uses: codeinspectorio/github-action@master
           with:
-            rep_token: ${{ secrets.GITHUB_TOKEN }}
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
             code_inspector_access_key: ${{ secrets.CODE_INSPECTOR_ACCESS_KEY }}
             code_inspector_secret_key: ${{ secrets.CODE_INSPECTOR_INSPECTOR_SECRET_KEY }}
             min_quality_grade: 'WARNING'
