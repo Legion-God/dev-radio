@@ -82,9 +82,11 @@ def podcast_extractor(podcast_name):
     podcast_link = read_podcasts().get(podcast_name)
     if podcast_link:
         try:
-            requests.get(podcast_link)
+            requests.get(podcast_link, timeout=50)
         except ConnectionError:
             print("Either you are offline or the site is ...")
+        except requests.exceptions.Timeout:
+            print("Request Timeout when accessing podcast link ...")
         except requests.exceptions.RequestException as e:
             print(e)
             print("Something went wrong, when accessing podcast ...")
@@ -122,7 +124,7 @@ def cli_print_episodes(podcast_name):
     :param podcast_name:  podcast name from podcast dict.
     :return:
     """
-    click.echo("Wait a few seconds ...")
+    click.echo("Wait for a few seconds ...")
     episode_list = podcast_extractor(podcast_name)
     if episode_list:
         pretty_table = PrettyTable()
@@ -161,7 +163,7 @@ def cli_podcast_play(podcast_name, episode_id):
     :return:
     """
     episode = None
-    print("Wait a few seconds ...\n")
+    print("Wait for a few seconds ...\n")
     episode_list = podcast_extractor(podcast_name)
     if episode_list:
         try:

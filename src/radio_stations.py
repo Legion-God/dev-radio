@@ -120,11 +120,13 @@ def cli_add_station(station_name, station_url):
     :return:
     """
     try:
-        resp = requests.get(station_url, stream=True)
+        resp = requests.get(station_url, stream=True, timeout=50)
     except MissingSchema:
         print("Stream url is incomplete ...")
     except ConnectionError:
         print("Either you are offline or the site is ...")
+    except requests.exceptions.Timeout:
+        print("Request Time out exception when trying to access radio station ...")
     except requests.exceptions.RequestException as e:
         print(e)
         print("There seems to be some problem with Url ...")
@@ -186,7 +188,7 @@ def cli_radio_check():
     radio_stations = read_stations()
     valid_media_extensions = ["audio/mpeg", "audio/aac", "application/ogg"]
     for station_name, station_url in radio_stations.items():
-        resp_content_type = requests.get(station_url, stream=True).headers.get(
+        resp_content_type = requests.get(station_url, stream=True, timeout=50).headers.get(
             "Content-Type"
         )
         if resp_content_type in valid_media_extensions:

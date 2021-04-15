@@ -19,7 +19,7 @@ def player(stream_url):
         "audio/opus",
         "audio/vorbis",
     ]
-    resp_content_type = requests.get(stream_url, stream=True).headers.get(
+    resp_content_type = requests.get(stream_url, stream=True, timeout=50).headers.get(
         "Content-Type"
     )
 
