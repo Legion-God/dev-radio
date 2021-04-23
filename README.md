@@ -2,6 +2,8 @@
 [![Code Grade](https://www.code-inspector.com/project/21254/status/svg)](https://frontend.code-inspector.com/public/project/21254/dev-radio/dashboard)
 [![Code Quality Score](https://www.code-inspector.com/project/21254/score/svg)](https://frontend.code-inspector.com/public/project/21254/dev-radio/dashboard)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![PyPi Version](https://badge.fury.io/py/dev-radio.svg)](https://pypi.org/project/dev-radio/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/dev-radio?label=PyPI%20Downloads)](https://pypi.org/project/dev-radio/)
 
 # dev-radio
 dev-radio is simple command line tool to listen to radio and developer podcasts.
